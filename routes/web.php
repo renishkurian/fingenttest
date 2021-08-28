@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\StudentController;
-
+use \App\Http\Controllers\MarkController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +14,7 @@ use \App\Http\Controllers\StudentController;
 |
 */
 Route::resource('student', StudentController::class);//->name('student');
+Route::resource('mark', MarkController::class);
 Route::get('/', function () {
     return view('welcome');
 });

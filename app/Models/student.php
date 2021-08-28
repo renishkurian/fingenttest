@@ -21,9 +21,28 @@ class student extends Model
 
     function term(){
 
-            return $this->belongsToMany(Term::class, 'student_term', 'student_id','term_id');
+            return $this->belongsToMany(Term::class);
 
         
         
     }
+
+function test(){
+
+    return $this->hasMany(mark::class);
+}
+    function mark(){
+
+        
+                return $this->belongsToMany(mark::class, 'student_term', 'term_id','student_id');
+    
+            
+            
+        
+    }
+    // function studet_mark(){
+
+    //     return $this->hasManyThrough("App\term", student::class, 'term_id', 'student_id');
+    
+    //     }
 }

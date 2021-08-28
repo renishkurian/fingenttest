@@ -16,9 +16,12 @@ class Subject extends Model
          * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
          */
     
-            return $this->belongsToMany(Term::class, 'term_subject','term_id','subject_id');
+            return $this->hasMany(Term::class, 'term_subject','term_id','subject_id');
 
         
         
+    }
+    function mark(){
+        return $this->hasone(mark::class);
     }
 }

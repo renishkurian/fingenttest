@@ -21,4 +21,5 @@ class Term extends Model
         
         
     }
+
 }

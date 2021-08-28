@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class mark extends Model
 {
     use HasFactory;
+
+    
+ 
 }
