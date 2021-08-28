@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Create new student')
-<div class="container mt-5">
+@section('title', 'Mark list')
+
+
 @section('content')
+
+<div class="container mt-5">
 @if(isset($student))
 
     {{ Form::model($student, ['route' => ['student.update', $student->id], 'method' => 'patch']) }}
@@ -65,3 +68,4 @@
 {{ Form::close() }}
 
 </div>
+@endsection

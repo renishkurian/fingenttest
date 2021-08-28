@@ -17,12 +17,13 @@ class CreateMarksTable extends Migration
             $table->id();
             $table->bigInteger("student_id")->unsigned();
             $table->bigInteger("term_id")->unsigned();
-            $table->bigInteger("subject_id")->unsigned();
-            $table->float("mark");
+          
+            $table->float("maths");
+            $table->float("history");
+            $table->float("science");
             $table->foreign("student_id")->references("id")->on("students")->onDelete("cascade");
             $table->foreign("term_id")->references("id")->on("terms")->onDelete("cascade");
-            $table->foreign("subject_id")->references("id")->on("subjects")->onDelete("cascade");
-            
+               
   
    
             $table->timestamps();

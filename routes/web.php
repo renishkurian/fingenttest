@@ -17,4 +17,4 @@ Route::resource('student', StudentController::class);//->name('student');
 Route::resource('mark', MarkController::class);
 Route::get('/', function () {
     return view('welcome');
-});
+})->name("home");

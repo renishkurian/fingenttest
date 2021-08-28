@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\mark;
 use App\Models\student;
 use Illuminate\Http\Request;
+use App\Http\Requests\markFromRequest;
 
 class MarkController extends Controller
 {
@@ -16,29 +17,11 @@ class MarkController extends Controller
     public function index()
     {
         
-     //  $s= student::with("term.subject.mark")->get();
-     $s=student::with("term")->with("test")->get();
-echo "<pre>";
-     foreach($s as $row){
-         echo $row->name;
-         foreach($row->mark as $r){
-             echo $r->mark;
-         }
-         echo str_repeat("*",30);
+   
+    return view("mark.index",["marks"=>mark::with("student")->with("term")->get()]);
 
-     }
-      // dd($s);
-    //   foreach($s as $row){
 
-    //     foreach($row->term() as $term){
-    //         print_r($term);
-    //         echo "hahah $term hahaha" ;
-    //     }
-    //       //dd($row->term()->first()->subject()->first()->name);
-    //       echo $row->name,$row->term()->first()->name,$row->term()->first()->subject()->first()->name;
-    //      // echo($row->term()->first()->name);
-    //       echo "<br>";
-     // }
+
     }
 
     /**
@@ -57,9 +40,18 @@ echo "<pre>";
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(markFromRequest $request)
     {
-        //
+     $is_exist=mark::where([['student_id',"=",$request->student_id],["term_id","=",$request->term_id]])->get();
+
+     if(!$is_exist->isEmpty())
+    {
+        return redirect(route("mark.index"))->with('message',"This entry already exists");
+    }
+    
+       mark::updateOrCreate(["student_id"=>$request->student_id,"term_id"=>$request->term_id],$request->only("student_id","term_id","maths","history","science"));
+      student::find($request->student_id)->term()->attach($request->term_id);
+       return redirect(route("mark.index"))->with('message',"mark added successfully");
     }
 
     /**
@@ -81,7 +73,7 @@ echo "<pre>";
      */
     public function edit(mark $mark)
     {
-        //
+        return view("mark.form",["mark"=>$mark]);
     }
 
     /**
@@ -93,7 +85,12 @@ echo "<pre>";
      */
     public function update(Request $request, mark $mark)
     {
-        //
+        mark::findOrFail($mark->id);
+        $data= $request->only("student_id","term_id","maths","history","science");
+       
+
+       $mark->fill($data)->save();
+    return redirect()->route("mark.index")->with('message',"mark updated");
     }
 
     /**
@@ -104,6 +101,8 @@ echo "<pre>";
      */
     public function destroy(mark $mark)
     {
-        //
+        $mark->delete();
+        
+        return redirect()->route('mark.index')->with('message',"Mark deleted");
     }
 }

@@ -99,7 +99,7 @@ class StudentController extends Controller
     {
         $student->delete();
         
-        return redirect()->route('student.index')->with('message',"student delete");
+        return redirect()->route('student.index')->with('message',"student deleted");
         //
     }
 }

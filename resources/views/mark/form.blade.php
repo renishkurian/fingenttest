@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('title', 'Enter mark')
-<div class="container mt-5">
-@section('content')
-@if(isset($student))
 
-    {{ Form::model($student, ['route' => ['student.update', $student->id], 'method' => 'patch']) }}
+@section('content')
+<div class="container mt-5">
+@if(isset($mark))
+
+    {{ Form::model($mark, ['route' => ['mark.update', $mark->id], 'method' => 'patch']) }}
     <h3 class="title" id="title">Edit Mark</h3>
 @else
     {{ Form::open(['route' => 'mark.store']) }}
@@ -30,7 +31,7 @@
          </span>
          @endif
         
-         {!! Form::select( "student_id", \App\Models\Term::pluck('name','id') , null,  ['id'=>'natcode','placeholder'=>"choose student", 'required','class'=>"form-control"] ) !!}
+         {!! Form::select( "term_id", \App\Models\Term::pluck('name','id') , null,  ['id'=>'','placeholder'=>"choose Term", 'required','class'=>"form-control"] ) !!}
 
         </div>
 </div>
@@ -42,7 +43,7 @@
         <strong>{{ $errors->first('maths') }}</strong>
         </span>
         @endif
-        {{ Form::text('maths', null,['placeholder'=>"Maths mark",'class'=>"form-control",'required']) }}
+        {{ Form::number('maths', null,['placeholder'=>"Maths mark",'class'=>"form-control",'required']) }}
     </div>
     <div class="col-md-6">
 
@@ -54,7 +55,7 @@
         <strong>{{ $errors->first('science') }}</strong>
         </span>
         @endif
-        {{ Form::text('science', null,['placeholder'=>"science mark",'class'=>"form-control",'required']) }}
+        {{ Form::number('science', null,['placeholder'=>"science mark",'class'=>"form-control",'required']) }}
 
     </div>
 
@@ -70,7 +71,7 @@
             <strong>{{ $errors->first('history') }}</strong>
             </span>
             @endif
-            {{ Form::text('history', null,['placeholder'=>"history mark",'class'=>"form-control",'required']) }}
+            {{ Form::number('history', null,['placeholder'=>"history mark",'class'=>"form-control",'required']) }}
         </div>
         <div class="col-md-6 pt-4">   {{ Form::submit('Save', ['name' => 'submit' ,'class'=>"btn btn-primary form-control"]) }}</div>
       
@@ -83,3 +84,4 @@
 {{ Form::close() }}
 
 </div>
+@endsection
