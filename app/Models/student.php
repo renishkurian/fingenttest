@@ -19,8 +19,11 @@ class student extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    // function teachers(){
-    //     return $this->belo(Teacher::class);
+    function term(){
 
-    // }
+            return $this->belongsToMany(Term::class, 'student_term', 'student_id','term_id');
+
+        
+        
+    }
 }

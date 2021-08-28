@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
     {
        // \App\Models\Teacher::factory(10)->create();
        $this->call([
-        TeacherSeeder::class]);
+        //TeacherSeeder::class,
+       // TermSeeder::class,
+        //SubjectSeeder::class
+        TermSubjectSeeder::class
+    
+    ]);
     }
 }
